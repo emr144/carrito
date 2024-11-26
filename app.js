@@ -1,13 +1,38 @@
 const productos = [
-    { nombre: "Box Engasse", imagen: "img/boxengasse.png", precio: 15000 },
-    { nombre: "English Horse", imagen: "img/englishrose.png", precio: 25000 },
-    { nombre: "Knock Nap", imagen: "img/knocknap.png", precio: 35000 },
-    { nombre: "La Night", imagen: "img/lanight.png", precio: 18000 },
-    { nombre: "Silver All", imagen: "img/silverall.png", precio: 32000 },
-    { nombre: "Skin Glam", imagen: "img/skinglam.png", precio: 18000 },
-    { nombre: "Midimix", imagen: "img/midimix.png", precio: 54000 },
-    { nombre: "Sir Blue", imagen: "img/sirblue.png", precio: 32000 },
-    { nombre: "Middlesteel", imagen: "img/middlesteel.png", precio: 42800 },
+    { nombre: "1001", tipo: "Base", imagen: "img/base1001.jpg", precio: 15000 },
+    { nombre: "1018", tipo: "Base", imagen: "img/base1018.jpg", precio: 15200 },
+    { nombre: "1019", tipo: "Base", imagen: "img/base1019.jpg", precio: 15500 },
+    { nombre: "B09", tipo: "Base", imagen: "img/baseB09.jpg", precio: 15800 },
+    { nombre: "B11", tipo: "Base", imagen: "img/baseB11.jpg", precio: 16000 },
+    { nombre: "B13", tipo: "Base", imagen: "img/baseB13.jpg", precio: 16200 },
+    { nombre: "1003", tipo: "Blenders", imagen: "img/blenders1003.jpg", precio: 16500 },
+    { nombre: "1005", tipo: "Blenders", imagen: "img/blenders1005.jpg", precio: 16700 },
+    { nombre: "1006", tipo: "Blenders", imagen: "img/blenders1006.jpg", precio: 17000 },
+    { nombre: "B30", tipo: "Blenders", imagen: "img/blendersB30.jpg", precio: 17200 },
+    { nombre: "B32", tipo: "Blenders", imagen: "img/blendersB32.jpg", precio: 17500 },
+    { nombre: "N012", tipo: "Labios", imagen: "img/labiosN012.jpg", precio: 18000 },
+    { nombre: "N014", tipo: "Labios", imagen: "img/labiosN014.jpg", precio: 18200 },
+    { nombre: "N034", tipo: "Labios", imagen: "img/labiosN034.jpg", precio: 18500 },
+    { nombre: "N080", tipo: "Labios", imagen: "img/labiosN080.jpg", precio: 18800 },
+    { nombre: "108", tipo: "Labios", imagen: "img/labiosN108.jpg", precio: 19000 },
+    { nombre: "N109", tipo: "Labios", imagen: "img/labiosN109.jpg", precio: 19200 },
+    { nombre: "N110", tipo: "Labios", imagen: "img/labiosN110.jpg", precio: 19500 },
+    { nombre: "N112", tipo: "Labios", imagen: "img/labiosN112.jpg", precio: 19800 },
+    { nombre: "N130", tipo: "Labios", imagen: "img/labiosN130.jpg", precio: 20000 },
+    { nombre: "N131", tipo: "Labios", imagen: "img/labiosN131.jpg", precio: 20500 },
+    { nombre: "1003", tipo: "Ojos", imagen: "img/ojos1003.jpg", precio: 21000 },
+    { nombre: "1005", tipo: "Ojos", imagen: "img/ojos1005.jpg", precio: 21200 },
+    { nombre: "1006", tipo: "Ojos", imagen: "img/ojos1006.jpg", precio: 21500 },
+    { nombre: "1007", tipo: "Ojos", imagen: "img/ojos1007.jpg", precio: 22000 },
+    { nombre: "1008", tipo: "Ojos", imagen: "img/ojos1008.jpg", precio: 22500 },
+    { nombre: "1016", tipo: "Ojos", imagen: "img/ojos1016.jpg", precio: 23000 },
+    { nombre: "1017", tipo: "Ojos", imagen: "img/ojos1017.jpg", precio: 23500 },
+    { nombre: "1020", tipo: "Ojos", imagen: "img/ojos1020.jpg", precio: 24000 },
+    { nombre: "1021", tipo: "Ojos", imagen: "img/ojos1021.jpg", precio: 24500 },
+    { nombre: "1010", tipo: "Polvo", imagen: "img/polvo1010.jpg", precio: 25000 },
+    { nombre: "1018", tipo: "Polvo", imagen: "img/polvo1018.jpg", precio: 25500 },
+    { nombre: "1019", tipo: "Polvo", imagen: "img/polvo1019.jpg", precio: 26000 },
+    { nombre: "1020", tipo: "Polvo", imagen: "img/polvo1020.jpg", precio: 26500 }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.innerHTML = `
             <span class="titulo-item">${producto.nombre}</span>
             <img src="${producto.imagen}" alt="${producto.nombre}" class="img-item">
+            <span class="modo-uso-item">${producto.tipo}</span>
             <span class="precio-item">$${producto.precio.toLocaleString()}</span>
             <button class="boton-item">Agregar al Carrito</button>
         `;
@@ -34,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         botonesAgregarAlCarrito[i].addEventListener('click', agregarAlCarritoClicked);
     }
 
-    // Agregar funcionalidad a otros botones del carrito
+    // Asignar los eventos a los botones del carrito
     ready();
 });
 
@@ -75,29 +101,42 @@ function agregarAlCarritoClicked(event) {
 }
 
 // Función que hace visible el carrito
-function hacerVisibleCarrito(){
+function hacerVisibleCarrito() {
     carritoVisible = true;
     var carrito = document.getElementsByClassName('carrito')[0];
-    carrito.style.marginRight = '0';  // Aseguramos que el carrito esté siempre visible, sin animación de ocultar
-    carrito.style.opacity = '1'; // Aseguramos que el carrito sea visible
+    carrito.style.marginRight = '0';
+    carrito.style.opacity = '1';
 
     var items = document.getElementsByClassName('contenedor-items')[0];
-    items.style.width = '60%'; // Ajustamos el contenido para que no ocupe toda la pantalla
+    items.style.width = '60%';
 }
 
-// Función que agrega un item al carrito
 function agregarItemAlCarrito(titulo, precio, imagenSrc) {
-    const item = document.createElement('div');
-    item.classList.add('item');
     const itemsCarrito = document.getElementsByClassName('carrito-items')[0];
 
     const nombresItemsCarrito = itemsCarrito.getElementsByClassName('carrito-item-titulo');
     for (let i = 0; i < nombresItemsCarrito.length; i++) {
-        if (nombresItemsCarrito[i].innerText == titulo) {
-            alert("El item ya se encuentra en el carrito");
+        if (nombresItemsCarrito[i].innerText === titulo) {
+            // Si el producto ya está en el carrito, incrementa la cantidad
+            const cantidadInput = nombresItemsCarrito[i].parentElement.querySelector('.carrito-item-cantidad');
+            const cantidad = parseInt(cantidadInput.value);
+            cantidadInput.value = cantidad + 1;
+
+            // Actualizar el precio del producto en el carrito
+            const precioUnitario = parseInt(precio.replace('$', '').replace(',', ''));
+            const nuevoPrecioTotal = (cantidad + 1) * precioUnitario;
+            const precioCarrito = nombresItemsCarrito[i].parentElement.querySelector('.carrito-item-precio');
+            precioCarrito.innerText = `$${nuevoPrecioTotal.toLocaleString()}`;
+
+            // Actualizar el total del carrito
+            actualizarTotal();
             return;
         }
     }
+
+    // Si el producto no está en el carrito, agregarlo
+    const item = document.createElement('div');
+    item.classList.add('item');
 
     const itemCarritoContenido = `
         <div class="carrito-item">
@@ -111,87 +150,121 @@ function agregarItemAlCarrito(titulo, precio, imagenSrc) {
                 </div>
                 <span class="carrito-item-precio">${precio}</span>
             </div>
-            <button class="btn-eliminar">
-                <i class="fa-solid fa-trash"></i>
-            </button>
+            <i class="fa-solid fa-trash-can btn-eliminar"></i>
         </div>
     `;
     item.innerHTML = itemCarritoContenido;
-    itemsCarrito.appendChild(item);
+    itemsCarrito.append(item);
 
-    // Funcionalidad para eliminar el item
-    item.getElementsByClassName('btn-eliminar')[0].addEventListener('click', eliminarItemCarrito);
+    // Vuelve a llamar a la función ready para asignar eventos
+    ready();
 
-    // Funcionalidad para restar cantidad
-    const botonRestarCantidad = item.getElementsByClassName('restar-cantidad')[0];
-    botonRestarCantidad.addEventListener('click', restarCantidad);
-
-    // Funcionalidad para sumar cantidad
-    const botonSumarCantidad = item.getElementsByClassName('sumar-cantidad')[0];
-    botonSumarCantidad.addEventListener('click', sumarCantidad);
-
-    // Actualizar total
-    actualizarTotalCarrito();
+    // Actualizar el total del carrito
+    actualizarTotal();
 }
 
-// Función para aumentar la cantidad
-function sumarCantidad(event) {
-    const buttonClicked = event.target;
-    const selector = buttonClicked.parentElement;
-    let cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    cantidadActual++;
-    selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-    actualizarTotalCarrito();
-}
-
-// Función para reducir la cantidad
-function restarCantidad(event) {
-    const buttonClicked = event.target;
-    const selector = buttonClicked.parentElement;
-    let cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    if (cantidadActual > 1) {
-        cantidadActual--;
-        selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-        actualizarTotalCarrito();
-    }
-}
 
 // Función para eliminar un item del carrito
 function eliminarItemCarrito(event) {
     const buttonClicked = event.target;
-    buttonClicked.parentElement.parentElement.remove();
-    actualizarTotalCarrito();
-    ocultarCarrito();
+    buttonClicked.parentElement.remove();
+    actualizarTotal();
+}
+
+// Función para sumar cantidad
+function sumarCantidad(event) {
+    const botonSumar = event.target;
+    const inputCantidad = botonSumar.previousElementSibling;
+    let cantidad = parseInt(inputCantidad.value);
+    cantidad += 1;
+    inputCantidad.value = cantidad;
+
+    const item = botonSumar.closest('.carrito-item');
+    const titulo = item.getElementsByClassName('carrito-item-titulo')[0].innerText;
+
+    // Buscar el precio original del producto en la lista 'productos'
+    const producto = productos.find(p => p.nombre === titulo);
+    const precioBase = producto.precio;
+
+    // Calcular el nuevo precio total
+    const nuevoPrecioTotal = cantidad * precioBase;
+
+    // Actualizar el precio en el carrito
+    const precio = item.getElementsByClassName('carrito-item-precio')[0];
+    precio.innerText = `$${nuevoPrecioTotal.toLocaleString()}`;
+
+    // Actualizar el total general del carrito
+    actualizarTotal();
+}
+
+// Función para restar cantidad
+function restarCantidad(event) {
+    const botonRestar = event.target;
+    const inputCantidad = botonRestar.nextElementSibling;
+    let cantidad = parseInt(inputCantidad.value);
+
+    if (cantidad > 1) {
+        cantidad -= 1;
+        inputCantidad.value = cantidad;
+
+        const item = botonRestar.closest('.carrito-item');
+        const titulo = item.getElementsByClassName('carrito-item-titulo')[0].innerText;
+
+        // Buscar el precio original del producto en la lista 'productos'
+        const producto = productos.find(p => p.nombre === titulo);
+        const precioBase = producto.precio;
+
+        // Calcular el nuevo precio total
+        const nuevoPrecioTotal = cantidad * precioBase;
+
+        // Actualizar el precio en el carrito
+        const precio = item.getElementsByClassName('carrito-item-precio')[0];
+        precio.innerText = `$${nuevoPrecioTotal.toLocaleString()}`;
+
+        // Actualizar el total general del carrito
+        actualizarTotal();
+    }
 }
 
 
+// Función para actualizar el total
+function actualizarTotal() {
+    let total = 0; // Reinicia el total a 0
+    const itemsCarrito = document.getElementsByClassName('carrito-items')[0];
+    const productosCarrito = itemsCarrito.getElementsByClassName('carrito-item');
 
-// Función para actualizar el total del carrito
-function actualizarTotalCarrito() {
-    const carritoContenedor = document.getElementsByClassName('carrito')[0];
-    const carritoItems = carritoContenedor.getElementsByClassName('carrito-item');
-    let total = 0;
+    // Iterar sobre los productos en el carrito
+    for (let i = 0; i < productosCarrito.length; i++) {
+        const producto = productosCarrito[i];
 
-    for (let i = 0; i < carritoItems.length; i++) {
-        const item = carritoItems[i];
-        const precioElemento = item.getElementsByClassName('carrito-item-precio')[0];
-        const precio = parseFloat(precioElemento.innerText.replace('$', '').replace('.', ''));
-        const cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0];
-        const cantidad = cantidadItem.value;
-        total += precio * cantidad;
+        // Obtener el título y la cantidad del producto
+        const titulo = producto.getElementsByClassName('carrito-item-titulo')[0].innerText;
+        const inputCantidad = producto.getElementsByClassName('carrito-item-cantidad')[0];
+        const cantidad = parseInt(inputCantidad.value) || 0; // Asegurar que sea un número
+
+        // Buscar el precio base del producto desde la lista "productos"
+        const productoBase = productos.find(p => p.nombre === titulo);
+
+        if (productoBase) {
+            // Calcular el subtotal del producto y añadirlo al total
+            total += productoBase.precio * cantidad;
+        } else {
+            console.error(`Producto con título "${titulo}" no encontrado en la lista 'productos'.`);
+        }
     }
 
-    total = Math.round(total * 100) / 100;
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ",00";
+    // Actualizar el total mostrado en el HTML
+    const totalCarrito = document.getElementsByClassName('carrito-precio-total')[0];
+    if (totalCarrito) {
+        totalCarrito.innerText = `$${total.toLocaleString()}`;
+    } else {
+        console.error("No se encontró el elemento '.carrito-precio-total' en el DOM.");
+    }
 }
 
-// Función para procesar el pago
+
+// Función para manejar el botón de pago
 function pagarClicked() {
-    alert("Gracias por la compra");
-    const carritoItems = document.getElementsByClassName('carrito-items')[0];
-    while (carritoItems.hasChildNodes()) {
-        carritoItems.removeChild(carritoItems.firstChild);
-    }
-    actualizarTotalCarrito();
-    ocultarCar
+    alert("Gracias por tu compra. ¡Pronto recibirás tu pedido!");
+    // Aquí podrías agregar más lógica para manejar el pago
 }

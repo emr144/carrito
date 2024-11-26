@@ -215,3 +215,9 @@ header h1 {
         width: 100%;
     }
 }
+.modo-uso-item {
+    display: block;  /* Para asegurarte de que cada tipo ocupe su propia línea */
+    font-size: 14px; /* Tamaño de texto más pequeño */
+    color: #888;     /* Color gris para diferenciarlo del resto del texto */
+    margin: 5px 0;   /* Espaciado arriba y abajo */
+}
