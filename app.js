@@ -268,3 +268,31 @@ function pagarClicked() {
     alert("Gracias por tu compra. ¡Pronto recibirás tu pedido!");
     // Aquí podrías agregar más lógica para manejar el pago
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const botonFlotante = document.getElementById("boton-flotante");
+
+    // Mostrar el botón solo en pantallas pequeñas y cuando hay scroll
+    function toggleBotonFlotante() {
+        if (window.innerWidth <= 850 && window.scrollY > 200) {
+            botonFlotante.style.display = "flex";
+        } else {
+            botonFlotante.style.display = "none";
+        }
+    }
+
+    // Llevar al final de la página al hacer clic
+    botonFlotante.addEventListener("click", function () {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+    });
+
+    // Verificar en scroll y en resize
+    window.addEventListener("scroll", toggleBotonFlotante);
+    window.addEventListener("resize", toggleBotonFlotante);
+
+    // Inicializar
+    toggleBotonFlotante();
+});

@@ -8,14 +8,19 @@
 
 header {
     background: url(img/header.jpg) center/cover no-repeat;
-    height: 300px;
+    height: 150px;
 }
 
 header h1 {
+
     text-align: center;
-    font-size: 35px;
-    color: #fff;
-    padding: 30px 0;
+    font-size: 45px;
+    color: #000000;
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Merriweather', sans-serif;
 }
 
 /* Contenedor principal */
@@ -220,4 +225,137 @@ header h1 {
     font-size: 14px; /* Tamaño de texto más pequeño */
     color: #888;     /* Color gris para diferenciarlo del resto del texto */
     margin: 5px 0;   /* Espaciado arriba y abajo */
+}
+
+
+
+/* Diseño general para pantallas más pequeñas */
+@media screen and (max-width: 850px) {
+    body {
+        font-size: 14px; /* Reducir ligeramente el tamaño del texto */
+    }
+
+    header {
+        height: 100px; /* Reducir la altura del header */
+    }
+
+    header h1 {
+        font-size: 24px; /* Ajustar el tamaño del texto */
+        padding: 20px 0;
+    }
+
+    /* Ajustar el contenedor principal */
+    .contenedor {
+        display: block;
+        padding: 10px;
+    }
+
+    /* Reajustar los elementos del carrito */
+    .contenedor-items {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-gap: 15px; /* Menor separación entre elementos */
+    }
+
+    .contenedor .contenedor-items .item {
+        max-width: 100%; /* Dejar que el elemento ocupe todo el ancho disponible */
+    }
+
+    .carrito {
+        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        height: auto; /* Ajuste automático de altura */
+        box-shadow: none; /* Sin sombra para un diseño más limpio */
+        position: relative; /* Evitar que se superponga */
+    }
+
+    .carrito .header-carrito {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .carrito .carrito-item {
+        flex-wrap: wrap; /* Permitir que los elementos se adapten en varias líneas */
+        padding: 10px;
+    }
+
+    .carrito .carrito-item img {
+        width: 50px; /* Reducir el tamaño de la imagen */
+        margin-bottom: 10px;
+    }
+
+    .carrito .carrito-item .selector-cantidad {
+        width: 100%;
+        margin-bottom: 10px; /* Separación entre los controles de cantidad */
+    }
+
+    .carrito .carrito-item .carrito-item-precio {
+        font-size: 16px; /* Ajustar el tamaño del texto */
+    }
+
+    .carrito-total {
+        padding: 20px; /* Reducir el padding */
+    }
+
+    .carrito-total .fila {
+        font-size: 18px; /* Reducir el tamaño del texto */
+    }
+
+    .carrito-total .btn-pagar {
+        font-size: 16px; /* Ajustar el tamaño del botón */
+        padding: 15px; /* Reducir el padding */
+    }
+}
+
+/* Para pantallas muy pequeñas, como móviles en orientación vertical */
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+        padding: 10px 0;
+    }
+
+    .contenedor-items {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Más elementos en una sola columna */
+    }
+
+    .contenedor .contenedor-items .item {
+        padding: 10px; /* Reducir el padding interno */
+    }
+
+    .carrito .header-carrito {
+        font-size: 16px; /* Texto más pequeño */
+    }
+
+    .carrito .carrito-item img {
+        width: 40px;
+    }
+
+    .carrito-total .btn-pagar {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+
+#boton-flotante {
+    position: fixed;
+    bottom: 20px; /* Espaciado desde la parte inferior */
+    right: 20px; /* Espaciado desde la parte derecha */
+    width: 50px; /* Tamaño del botón */
+    height: 50px;
+    background-color: #007BFF; /* Color de fondo */
+    color: white; /* Color del icono */
+    border: none; /* Sin bordes */
+    border-radius: 50%; /* Botón redondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+    cursor: pointer;
+    font-size: 24px; /* Tamaño del icono */
+    display: none; /* Oculto por defecto */
+    z-index: 1000; /* Siempre encima de otros elementos */
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#boton-flotante:hover {
+    background-color: #0056b3; /* Oscurecer el fondo al pasar el mouse */
 }
