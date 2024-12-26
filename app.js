@@ -1,68 +1,43 @@
-const productos = [
-    { nombre: "1001", tipo: "Base", imagen: "img/base1001.jpg", precio: 15000 },
-    { nombre: "1018", tipo: "Base", imagen: "img/base1018.jpg", precio: 15200 },
-    { nombre: "1019", tipo: "Base", imagen: "img/base1019.jpg", precio: 15500 },
-    { nombre: "B09", tipo: "Base", imagen: "img/baseB09.jpg", precio: 15800 },
-    { nombre: "B11", tipo: "Base", imagen: "img/baseB11.jpg", precio: 16000 },
-    { nombre: "B13", tipo: "Base", imagen: "img/baseB13.jpg", precio: 16200 },
-    { nombre: "1003", tipo: "Blenders", imagen: "img/blenders1003.jpg", precio: 16500 },
-    { nombre: "1005", tipo: "Blenders", imagen: "img/blenders1005.jpg", precio: 16700 },
-    { nombre: "1006", tipo: "Blenders", imagen: "img/blenders1006.jpg", precio: 17000 },
-    { nombre: "B30", tipo: "Blenders", imagen: "img/blendersB30.jpg", precio: 17200 },
-    { nombre: "B32", tipo: "Blenders", imagen: "img/blendersB32.jpg", precio: 17500 },
-    { nombre: "N012", tipo: "Labios", imagen: "img/labiosN012.jpg", precio: 18000 },
-    { nombre: "N014", tipo: "Labios", imagen: "img/labiosN014.jpg", precio: 18200 },
-    { nombre: "N034", tipo: "Labios", imagen: "img/labiosN034.jpg", precio: 18500 },
-    { nombre: "N080", tipo: "Labios", imagen: "img/labiosN080.jpg", precio: 18800 },
-    { nombre: "108", tipo: "Labios", imagen: "img/labiosN108.jpg", precio: 19000 },
-    { nombre: "N109", tipo: "Labios", imagen: "img/labiosN109.jpg", precio: 19200 },
-    { nombre: "N110", tipo: "Labios", imagen: "img/labiosN110.jpg", precio: 19500 },
-    { nombre: "N112", tipo: "Labios", imagen: "img/labiosN112.jpg", precio: 19800 },
-    { nombre: "N130", tipo: "Labios", imagen: "img/labiosN130.jpg", precio: 20000 },
-    { nombre: "N131", tipo: "Labios", imagen: "img/labiosN131.jpg", precio: 20500 },
-    { nombre: "1003", tipo: "Ojos", imagen: "img/ojos1003.jpg", precio: 21000 },
-    { nombre: "1005", tipo: "Ojos", imagen: "img/ojos1005.jpg", precio: 21200 },
-    { nombre: "1006", tipo: "Ojos", imagen: "img/ojos1006.jpg", precio: 21500 },
-    { nombre: "1007", tipo: "Ojos", imagen: "img/ojos1007.jpg", precio: 22000 },
-    { nombre: "1008", tipo: "Ojos", imagen: "img/ojos1008.jpg", precio: 22500 },
-    { nombre: "1016", tipo: "Ojos", imagen: "img/ojos1016.jpg", precio: 23000 },
-    { nombre: "1017", tipo: "Ojos", imagen: "img/ojos1017.jpg", precio: 23500 },
-    { nombre: "1020", tipo: "Ojos", imagen: "img/ojos1020.jpg", precio: 24000 },
-    { nombre: "1021", tipo: "Ojos", imagen: "img/ojos1021.jpg", precio: 24500 },
-    { nombre: "1010", tipo: "Polvo", imagen: "img/polvo1010.jpg", precio: 25000 },
-    { nombre: "1018", tipo: "Polvo", imagen: "img/polvo1018.jpg", precio: 25500 },
-    { nombre: "1019", tipo: "Polvo", imagen: "img/polvo1019.jpg", precio: 26000 },
-    { nombre: "1020", tipo: "Polvo", imagen: "img/polvo1020.jpg", precio: 26500 }
-];
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const contenedorItems = document.querySelector(".contenedor-items");
 
-    // Generar los productos
-    productos.forEach(producto => {
-        const item = document.createElement("div");
-        item.classList.add("item");
+    try {
+        // Hacer la solicitud al backend
+        const response = await fetch('productos.json'); //IMPORTANTE!!!!
+        if (!response.ok) {
+            throw new Error("Error al obtener los productos");
+        }
+        const productos = await response.json();
 
-        item.innerHTML = `
-            <span class="titulo-item">${producto.nombre}</span>
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="img-item">
-            <span class="modo-uso-item">${producto.tipo}</span>
-            <span class="precio-item">$${producto.precio.toLocaleString()}</span>
-            <button class="boton-item">Agregar al Carrito</button>
-        `;
+        // Generar los productos en el DOM
+        productos.forEach(producto => {
+            const item = document.createElement("div");
+            item.classList.add("item");
 
-        contenedorItems.appendChild(item);
-    });
+            item.innerHTML = `
+                <span class="titulo-item">${producto.nombre}</span>
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="img-item">
+                <span class="modo-uso-item">${producto.tipo}</span>
+                <span class="precio-item">$${producto.precio.toLocaleString()}</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            `;
 
-    // Asignar el evento a los botones "Agregar al Carrito"
-    const botonesAgregarAlCarrito = document.getElementsByClassName('boton-item');
-    for (let i = 0; i < botonesAgregarAlCarrito.length; i++) {
-        botonesAgregarAlCarrito[i].addEventListener('click', agregarAlCarritoClicked);
+            contenedorItems.appendChild(item);
+        });
+
+        // Asignar eventos después de crear los productos
+        const botonesAgregarAlCarrito = document.getElementsByClassName('boton-item');
+        for (let i = 0; i < botonesAgregarAlCarrito.length; i++) {
+            botonesAgregarAlCarrito[i].addEventListener('click', agregarAlCarritoClicked);
+        }
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
     }
 
-    // Asignar los eventos a los botones del carrito
+    // Asignar los eventos relacionados con el carrito
     ready();
 });
+
 
 // Función para ejecutar los eventos relacionados con el carrito
 function ready() {
@@ -265,8 +240,12 @@ function actualizarTotal() {
 
 // Función para manejar el botón de pago
 function pagarClicked() {
-    alert("Gracias por tu compra. ¡Pronto recibirás tu pedido!");
-    // Aquí podrías agregar más lógica para manejar el pago
+    Swal.fire({
+        title: 'Gracias por tu compra',
+        text: '¡Pronto recibirás tu pedido!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
